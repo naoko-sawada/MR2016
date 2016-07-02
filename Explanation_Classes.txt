@@ -1,0 +1,21 @@
+RootObject: Original class containing all the JSON
+Status: Gives an OK if the JSON is correctly fetched
+Geocoded_Waypoints: It's a list of two objects: one corresponding to the destination and one to the origin. Contains Geocoder_Status (gives an OK if the place is identified) and place_id (id of the identified place)
+Routes: Contains information about the route from origin to destination:
+	bounds: Contains northeast and southwest, corresponding to the coordinates of the farthest points the trip includes. Helps drawing a rectangle that acts as a boundary of the whole route. Useless in our program.
+	summary: Gives info about the route. In most cases it is empty.
+	legs: THIS IS IMPORTANT. Contains information about the route itself.
+		start_Location: Gives the coordinates in lat (latitute) and long (longitude) of the origin of the trip.
+		end_Location: Gives the coordinates in lat (latitute) and long (longitude) of the end of the trip
+		start_Address: Gives a string with information about the origin of the trip
+		end_Address: Gives a string with information about the end of the trip
+		duration: Gives the time from origin to destination in both text (string like "306 km") or value (int in metres)
+		distance: Gives the distance from origin to destination in both text (string like "1 h 36 min") or value (int in seconds)
+		steps: THIS IS IMPORTANT. It's a list of objects corresponding to each checkpoint in the route.
+			start_Location: Gives the coordinates in lat (latitute) and long (longitude) of the origin of the specific part of the trip between checkpoints.
+			end_Location: Gives the coordinates in lat (latitute) and long (longitude) of the end of the specific part of the trip between checkpoints.
+			duration: Gives the time from origin to destination of the specific part of the trip between checkpoints in both text (string like "306 km") or value (int in metres)
+			distance: Gives the distance from origin to destination of the specific part of the trip between checkpoints in both text (string like "1 h 36 min") or value (int in seconds)
+			html_instructions: Gives information about the trip between checkpoints and what to do in the next checkpoint ("Go straight through... and then turn left at the end"). DISPLAY THIS.
+			maneuver: Gives a code of what to do when you get at the next checkpoint out of a list ("merge", "turn-right"...). USE HTML_INSTRUCTIONS BETTER.
+			travel_mode: String indicating the travel mode selected ("driving", "walking").

@@ -1,0 +1,5 @@
+Google Maps Directions key : 
+
+AIzaSyDpqFyVZmLUvu1uPT5rjSw1uIiDkY3st6M   iOS apikey
+
+AIzaSyCiGylcR4IqXsz6HJeB3Xuu24jZyXDjxog   apikey server

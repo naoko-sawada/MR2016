@@ -1,0 +1,20 @@
+********************************************
+****** Updated by Kevin on June, 24th ******
+********************************************
+
+
+/////////
+/Scripts/
+/////////
+
+- CoordinatesHandler : Class offering a set of methods to convert lat, long in degrees to cartesian coordinates
+	Do not need to be attached to any Unity GameObject, but is called by other scripts.
+- DataFetcher : Script responsible for the HTML request. Returns result in www object, whose content can be accessed through www.text as a string, by example.
+	Need to be attached to the Player GameObject
+GPSLocationFetcher : Deprecated. Only containing the code for a Location request, which has been reimplemented in LocationController.
+jsonDeserializer : Yet to coordinate with the rest of the scripts. So far creates C# classes containing all the information fetched by the HTTP request (the JSON). Translates and deserializes the JSON into C# classes.
+LocationController : Script responsible for the Location request using the device GPS. Position is obtained in lat, long (degrees) from the GPS and then converted to cartesian coordinates. Therefore, results in cartesian coordinates.
+	Need to be attached to the Player GameObject. Note : the Player GameObject will always be in 0,0,0. Steps will be placed at relative positions to the Player object.
+NavigationController : Script responsible for instantiating the next step.
+	Currently working on that one.
+StepController : Script responsible for updating a step position relatively to the player's position.

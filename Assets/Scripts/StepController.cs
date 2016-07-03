@@ -15,6 +15,9 @@ public class StepController : MonoBehaviour
 
 	private bool didCalculateStepdistance; // distance between a step and next step
 
+	public Color stepColor;
+	public Color goalColor;
+
 	public int stepNum;
 	public float stepDistance;
 
@@ -33,7 +36,15 @@ public class StepController : MonoBehaviour
 		stepNum = 0;
 		position = json.updateStep();
 		didCalculateStepdistance = false;
-}
+		stepColor = new Color(48, 17, 210, 130);
+		goalColor = new Color(120, 0, 0,130);
+
+		Renderer[] render = GetComponentsInChildren<Renderer>();
+		foreach (Renderer tr in render) {
+			//tr.material.color = stepColor;
+			tr.material.color = new Color(0, 0, 255, 0.4f);
+		}
+	}
 
 void Update()
 	{
@@ -71,17 +82,7 @@ void Update()
 	{
 		//Debug.Log("this is collision");
 		if (col.name == "Player") {
-			stepNum++;
-
-			// Update latDest,lngDest, altDest
-			json = GameObject.Find("GM").GetComponent<jsonDeserializer>();
-			Vector3 locationInfo = json.updateStep();
-			latDest = locationInfo.x;
-			lngDest = locationInfo.y;
-			altDest = locationInfo.z;
-			position = CoordinatesHandler.LLA2ECEF(latDest, lngDest, altDest);
-			Vector3 relPositiontmp = position - GetComponentInParent<LocationController>().GetPosition();
-			stepDistance = relPositiontmp.magnitude;
+			stepNumIncrement();
 		}
 	}
 
@@ -99,4 +100,63 @@ void Update()
 	{
 		return (position - GetComponentInParent<LocationController>().GetPosition()) / scale;
     }
+
+	public void stepNumIncrement()
+	{
+		json = GameObject.Find("GM").GetComponent<jsonDeserializer>();
+
+		if (json.isLastStep()) {
+			return;
+		}
+		stepNum++;
+
+		// Update latDest,lngDest, altDest
+		Vector3 locationInfo = json.updateStep();
+		latDest = locationInfo.x;
+		lngDest = locationInfo.y;
+		altDest = locationInfo.z;
+		position = CoordinatesHandler.LLA2ECEF(latDest, lngDest, altDest);
+		Vector3 relPositiontmp = position - GetComponentInParent<LocationController>().GetPosition();
+		stepDistance = relPositiontmp.magnitude;
+
+		if (json.isLastStep()) {
+			Renderer[] render = GetComponentsInChildren<Renderer>();
+			foreach (Renderer tr in render) {
+				//tr.material.color = goalColor;
+				tr.material.color = new Color(255,0,0,0.4f);
+			}
+		} else {
+			Renderer[] render = GetComponentsInChildren<Renderer>();
+			foreach (Renderer tr in render) {
+				//tr.material.color = stepColor;
+				tr.material.color = new Color(0,0,255,0.4f);
+			}
+		}
+
+	}
+
+	public void stepNumDecrement()
+	{
+		if (stepNum == 0) {
+			return;
+		}
+
+		stepNum--;
+
+		// Update latDest,lngDest, altDest
+		json = GameObject.Find("GM").GetComponent<jsonDeserializer>();
+		Vector3 locationInfo = json.updateStep();
+		latDest = locationInfo.x;
+		lngDest = locationInfo.y;
+		altDest = locationInfo.z;
+		position = CoordinatesHandler.LLA2ECEF(latDest, lngDest, altDest);
+		Vector3 relPositiontmp = position - GetComponentInParent<LocationController>().GetPosition();
+		stepDistance = relPositiontmp.magnitude;
+
+		Renderer[] render = GetComponentsInChildren<Renderer>();
+		foreach (Renderer tr in render) {
+			//tr.material.color = stepColor;
+			tr.material.color = new Color(0,0,255,0.4f);
+        }
+	}
 }

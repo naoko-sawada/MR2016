@@ -6,11 +6,13 @@ public class NextInfoDisplay : MonoBehaviour
 {
 	private GameObject step;
 	private jsonDeserializer json;
+	private RectTransform rect;
 
 	// Use this for initialization
 	void Start()
 	{
 		step = GameObject.FindGameObjectWithTag("Step");
+		rect = GetComponent<RectTransform>();
 	}
 
 	// Update is called once per frame

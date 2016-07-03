@@ -7,8 +7,9 @@ public class DataFetcher : MonoBehaviour {
     // TODO Show progress of request ???
     // TODO Construct URL using user input, hence the public value here below for origin and destination
 
-    //public string origin;
-    //public string destination;
+    public string origin;
+    public string destination;
+	public string way;
     public string url = "https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key=AIzaSyCiGylcR4IqXsz6HJeB3Xuu24jZyXDjxog";
 
     public WWW www;

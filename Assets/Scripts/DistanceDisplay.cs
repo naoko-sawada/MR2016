@@ -31,14 +31,14 @@ public class DistanceDisplay : MonoBehaviour {
 
 		string distanceText, durationText;
 		if (distance >= 1000) {
-			distanceText = (distance / 1000).ToString() + "km\n";   // distance (km)
+			distanceText = ": " + (distance / 1000).ToString() + "km\n";   // distance (km)
 		} else {
-			distanceText = distance.ToString() + "m\n";   // distance (km)
+			distanceText = ": " + distance.ToString() + "m\n";   // distance (km)
 		}
 		if (duration >= 60) {
-			durationText = ((int)duration / 60).ToString() + "min\n";   // duration (min)
+			durationText = ": " + ((int)duration / 60).ToString() + "min\n";   // duration (min)
 		} else {
-			durationText = duration.ToString() + "seconds\n";   // duration (second)
+			durationText = ": " + duration.ToString() + "seconds\n";   // duration (second)
 		}
 		this.GetComponent<Text>().text = distanceText + durationText;
 	}

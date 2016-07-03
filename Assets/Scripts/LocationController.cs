@@ -38,10 +38,7 @@ public class LocationController : MonoBehaviour
 		towardsNorth = (CoordinatesHandler.LLA2ECEF(lat + 0.01f, lng, alt) - position).normalized;
 		towardsGround = (CoordinatesHandler.LLA2ECEF(lat, lng, alt - 0.01f) - position).normalized;
 
-		//towardsNorth = Vector3.ProjectOnPlane(new Vector3(0, 0, 1), position);
-		//if (towardsNorth.y < 0) {
-		//	towardsNorth = -towardsNorth;
-		//}
+		//Debug.Log("enable:" + Input.location.isEnabledByUser);
 
 
 		// Computes the user's position on Earth given by latitude in degrees, longitude in degrees and altitude in meters, to cartesian coordinates and displays it in Unity universe
@@ -64,6 +61,9 @@ public class LocationController : MonoBehaviour
 			//Debug.Log("Player position : X : " + position.x + " et Y : " + position.y + "et Z : " + position.z);   
 		} else if (Input.location.status == LocationServiceStatus.Running) {
 			LocationInfo currentLoc = Input.location.lastData;
+			lat = currentLoc.latitude;
+			lng = currentLoc.longitude;
+			alt = currentLoc.altitude;
 			position = CoordinatesHandler.LLA2ECEF(currentLoc.latitude, currentLoc.longitude, currentLoc.altitude);
 		}
 	}
@@ -71,7 +71,6 @@ public class LocationController : MonoBehaviour
 	private IEnumerator GetGPS()
 	/// Retrieve a user's location using his/her phone GPS.
 	{
-		Debug.Log("enable:" + Input.location.isEnabledByUser);
 		if (!Input.location.isEnabledByUser) {
 			yield break;
 		}

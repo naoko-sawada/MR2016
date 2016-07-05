@@ -22,7 +22,7 @@ public class DistanceDisplay : MonoBehaviour {
 		float distance = json.getAllDistance(); // distance (meter)
 		float duration = json.getAllDuration();
 
-		for (int i = 0;i < sc.stepNum - 1 ;i++) {
+		for (int i = 0;i < sc.stepNum ;i++) {
 			distance -= json.getDistance(i);
 			duration -= json.getDuration(i);
 		}

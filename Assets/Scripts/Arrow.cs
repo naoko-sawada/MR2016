@@ -16,7 +16,9 @@ public class Arrow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		target = GameObject.FindGameObjectWithTag("Step");
-		transform.LookAt(target.transform.position);
+		Vector3 targetTmp = new Vector3 (target.transform.position.x, 0, target.transform.position.z);
+
+		transform.LookAt(targetTmp);
 
 		// disapper when the distance between arrow and step is close. 
 		if ((transform.position-target.transform.position).magnitude < disapperLength) {

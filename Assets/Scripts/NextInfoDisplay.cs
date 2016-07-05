@@ -30,18 +30,18 @@ public class NextInfoDisplay : MonoBehaviour
 
 		string distanceText, durationText;
 		if (distance >= 1000) {
-			distanceText = (distance / 1000).ToString() + "km\n";   // distance (km)
+			distanceText = (distance / 1000).ToString() + "km, ";   // distance (km)
 		} else {
-			distanceText = distance.ToString() + "m\n";   // distance (km)
+			distanceText = distance.ToString() + "m, ";   // distance (km)
 		}
 
 		if (duration >= 60) {
-			durationText = (duration / 60).ToString() + "min\n";   // duration (min)
+			durationText = (duration / 60).ToString() + "min";   // duration (min)
 		} else {
-			durationText = duration.ToString() + "seconds\n";   // duration (second)
+			durationText = duration.ToString() + "seconds";   // duration (second)
 		}
 
-		this.GetComponent<Text>().text = json.getInstructions(sc.stepNum) + "\n" + distanceText + durationText;
+		this.GetComponent<Text>().text = json.getInstructions(sc.stepNum) + ", " + distanceText + durationText;
 		//Debug.Log("NextInfo: distance between steps" + json.getDistanceText(sc.stepNum));
 	}
 }

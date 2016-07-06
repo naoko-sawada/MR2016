@@ -34,19 +34,20 @@ public class StepController : MonoBehaviour
 		transform.SetParent(player.transform);
 		position = CoordinatesHandler.LLA2ECEF(latDest, lngDest, altDest);
 		stepNum = 0;
-		position = json.updateStep();
 		didCalculateStepdistance = false;
-		stepColor = new Color(48, 17, 210, 130);
-		goalColor = new Color(120, 0, 0,130);
+		stepColor = new Color(216, 49, 91, 180) / 255;
+		goalColor = new Color(127, 222, 255, 180) / 255;
 
 		Renderer[] render = GetComponentsInChildren<Renderer>();
 		foreach (Renderer tr in render) {
-			//tr.material.color = stepColor;
-			tr.material.color = new Color(0, 0, 255, 0.4f);
+			tr.material.color = stepColor;
 		}
+
+		json = GameObject.Find("GM").GetComponent<jsonDeserializer>();
+		position = json.updateStep();
 	}
 
-void Update()
+	void Update()
 	{
 		if (stepNum == 0) {
 			json = GameObject.Find("GM").GetComponent<jsonDeserializer>();
@@ -122,14 +123,12 @@ void Update()
 		if (json.isLastStep()) {
 			Renderer[] render = GetComponentsInChildren<Renderer>();
 			foreach (Renderer tr in render) {
-				//tr.material.color = goalColor;
-				tr.material.color = new Color(255,0,0,0.4f);
+				tr.material.color = goalColor;
 			}
 		} else {
 			Renderer[] render = GetComponentsInChildren<Renderer>();
 			foreach (Renderer tr in render) {
-				//tr.material.color = stepColor;
-				tr.material.color = new Color(0,0,255,0.4f);
+				tr.material.color = stepColor;
 			}
 		}
 
@@ -155,8 +154,7 @@ void Update()
 
 		Renderer[] render = GetComponentsInChildren<Renderer>();
 		foreach (Renderer tr in render) {
-			//tr.material.color = stepColor;
-			tr.material.color = new Color(0,0,255,0.4f);
-        }
+			tr.material.color = stepColor;
+		}
 	}
 }
